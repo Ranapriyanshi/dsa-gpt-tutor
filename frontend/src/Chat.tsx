@@ -4,9 +4,10 @@ import axios from "axios";
 const Chat: React.FC = () => {
   const [prompt, setPrompt] = useState("");
   const [messages, setMessages] = useState<{ user: string; bot: string }[]>([]);
+  const api = process.env.REACT_APP_API_URL || "http://localhost:8000";
 
   const handleSend = async () => {
-    const res = await axios.post("http://localhost:8000/generate-response", {
+    const res = await axios.post(`${api}/generate-response`, {
       usr_prompt: prompt,
     });
     setMessages([...messages, { user: prompt, bot: res.data.response }]);
